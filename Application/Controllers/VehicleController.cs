@@ -18,76 +18,52 @@ namespace Application.Controllers
             _vehicleFacade = vehicleFacade;
         }
 
-        // GET: api/<VehicleController>
+       
         [HttpGet]
-        public IActionResult Get()
+        [Route("Listar")]
+        public IEnumerable<Vehicle> Listar()
         {
-            try
-            {
-                return Ok(_vehicleFacade.ListarTodos());
-            }
-            catch (Exception ex)
-            {
-
-                return BadRequest(new { result = false, message = ex.Message });
-            }
-
+           
+            return _vehicleFacade.Listar();
+             
+        }
+         
+       
+        [HttpGet]
+        [Route("ObterPorId")]
+        public Vehicle ObterPorId(int id)
+        {
+            return _vehicleFacade.SelectById(id);
         }
 
-        // GET api/<VehicleController>/5
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
-        {
-            return Ok(_vehicleFacade.SelectById(id));
-        }
-
-        // POST api/<VehicleController>
+        
         [HttpPost]
-        public IActionResult Post([FromBody] Vehicle model)
+        [Route("Incluir")]
+        public Vehicle Incluir([FromBody] Vehicle model)
         {
-            try
-            {
-                _vehicleFacade.Incluir(model);
-                return Ok(new { result = true, message = "Registro incluído com sucesso" });
-            }
-            catch (Exception ex)
-            {
-
-                return BadRequest(new { result = false, message = ex.Message });
-            }
+             
+              return  _vehicleFacade.Incluir(model);
+                
            
         }
 
-        // PUT api/<VehicleController>/5
-        [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] Vehicle model)
+       
+        [HttpPut]
+        [Route("Atualizar")]
+        public Vehicle Atualizar( [FromBody] Vehicle model)
         {
-            try
-            {
-                _vehicleFacade.Atualizar(model);
-                return Ok(new { result = true, message = "Registro alterado com sucesso" });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { result = false, message = ex.Message });
-            }
+              return _vehicleFacade.Atualizar(model);
+                
            
         }
-
-        // DELETE api/<VehicleController>/5
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+ 
+        [HttpDelete]
+        [Route("Excluir")]
+        public bool Excluir(int id)
         {
-            try
-            {
-                _vehicleFacade.Excluir(id);
-                return Ok(new { result = true, message = "Registro excluído com sucesso" });
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(new { result = false, message = ex.Message });
-            }
-
+           
+             return   _vehicleFacade.Excluir(id);
+                
         }
     }
 }

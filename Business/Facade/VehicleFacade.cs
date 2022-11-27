@@ -19,26 +19,84 @@ namespace Business.Facade
             _vehicleModelService = vehicleModelService;
         }
 
-        public void Atualizar(Vehicle vehicle)
+        public Vehicle Atualizar(Vehicle vehicle)
         {
             _vehicleService.Update(vehicle);
+
+            return vehicle;
            
         }
 
-        public void Excluir(int id)
+        public bool Excluir(int id)
         {
-            _vehicleService.Delete(id);
+            try
+            {
+                _vehicleService.Delete(id);
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+           
         }
 
-        public void Incluir(Vehicle vehicle)
+        public Vehicle Incluir(Vehicle vehicle)
         {
-            vehicle.VehicleModels = _vehicleModelService.Find(x => x.Id == vehicle.IdVehicleModel);
-            _vehicleService.Insert(vehicle);
+            try
+            {
+
+                vehicle.VehicleModels = _vehicleModelService.Find(x => x.Id == vehicle.IdVehicleModel);
+
+                if(vehicle.VehicleModels == null)
+                    throw new InvalidOperationException("Não foi encontrado o modelo do veículo");                
+
+                _vehicleService.Insert(vehicle);
+
+                var result = _vehicleService.SelectAll().ToList().LastOrDefault();
+
+                if (result != null)
+                {
+                    return result;
+                }
+                else
+                {
+                    return new Vehicle();
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
         }
 
-        public List<Vehicle> ListarTodos()
+        public List<Vehicle> Listar()
         {
-            return _vehicleService.SelectAll().ToList();
+            try
+            {
+                var result = _vehicleService.SelectAll().ToList();
+
+                if(result != null)
+                {
+                    return result;
+                }
+                else
+                {
+                    return new List<Vehicle>();
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+           
+
         }
     }
 }

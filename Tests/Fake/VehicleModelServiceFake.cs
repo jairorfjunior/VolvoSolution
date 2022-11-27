@@ -111,7 +111,16 @@ namespace Tests.Fake
 
         public VehicleModel SelectById(int id)
         {
-            return _VehicleModels.Where(x => x.Id == id).FirstOrDefault();
+            var result = _VehicleModels.Where(x => x.Id == id).FirstOrDefault();
+
+            if(result != null)
+            {
+                return result;
+            }
+            else
+            {
+                return new VehicleModel();
+            }
         }
 
         public void Update(VehicleModel entity)
