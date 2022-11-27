@@ -8,9 +8,13 @@ namespace Infrastructure.Mapping
     {
         public void Configure(EntityTypeBuilder<VehicleModel> builder)
         {
+
+            builder.ToTable("VehicleModel");
+
             builder.HasKey(o => o.Id);
             builder.Property(p => p.VehicleModelDescription)
-            .HasMaxLength(150)
+                .HasColumnType("varchar(150)")
+                .HasMaxLength(150)
                 .IsRequired();
 
 

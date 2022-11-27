@@ -9,9 +9,19 @@ namespace Infrastructure.Mapping
     {
         public void Configure(EntityTypeBuilder<Vehicle> builder)
         {
+            builder.ToTable("Vehicle");
+
             builder.HasKey(o => o.Id);
             builder.Property(p => p.VehicleDescription)
+            .HasColumnType("varchar(150)")
             .HasMaxLength(150)
+                .IsRequired();
+
+            builder.Property(p => p.VehicleYearManufacture)
+                .HasColumnType("int")
+                .IsRequired();
+
+            builder.Property(p => p.VehicleYearModel).HasColumnType("int")
                 .IsRequired();
 
             builder.HasOne(p => p.VehicleModels)

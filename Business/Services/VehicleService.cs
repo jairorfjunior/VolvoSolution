@@ -9,11 +9,11 @@ namespace Business.Services
     public class VehicleService : ServiceGeneric<Vehicle>, IVehicleService
     {
         private readonly IVehicleRepository _rep;
-        private readonly ILogger _logger;
-        public VehicleService(IVehicleRepository repository, ILogger<VehicleService> logger) : base(repository)
+        
+        public VehicleService(IVehicleRepository repository) : base(repository)
         {
             _rep = repository;
-            _logger = logger;
+        
         }
     }
 }

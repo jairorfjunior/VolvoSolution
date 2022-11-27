@@ -19,23 +19,23 @@ namespace Application.Controllers
 
         // GET: api/<VehicleController>
         [HttpGet]
-        public IEnumerable<Vehicle> Get()
+        public IActionResult Get()
         {
-            return _vehicleService.SelectAll().AsEnumerable();
+            return Ok( _vehicleService.SelectAll().AsEnumerable());
         }
 
         // GET api/<VehicleController>/5
         [HttpGet("{id}")]
-        public Vehicle Get(int id)
+        public IActionResult Get(int id)
         {
-            return _vehicleService.SelectById(id);
+            return Ok(_vehicleService.SelectById(id));
         }
 
         // POST api/<VehicleController>
         [HttpPost]
         public void Post([FromBody] Vehicle model)
         {
-            _vehicleService.Insert(model);
+             _vehicleService.Insert(model);
         }
 
         // PUT api/<VehicleController>/5

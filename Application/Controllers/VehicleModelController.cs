@@ -19,16 +19,16 @@ namespace Application.Controllers
 
         // GET: api/<VehicleModelController>
         [HttpGet]
-        public IEnumerable<VehicleModel> Get()
+        public IActionResult Get()
         {
-            return _vehicleModelService.SelectAll().AsEnumerable();
+            return Ok(_vehicleModelService.SelectAll().AsEnumerable());
         }
 
         // GET api/<VehicleModelController>/5
         [HttpGet("{id}")]
-        public VehicleModel Get(int id)
+        public IActionResult Get(int id)
         {
-            return _vehicleModelService.SelectById(id);
+            return Ok( _vehicleModelService.SelectById(id));
         }
 
         // POST api/<VehicleModelController>

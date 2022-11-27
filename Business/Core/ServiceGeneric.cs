@@ -29,7 +29,7 @@ namespace Business.Core
             _repository.Delete(entity);
         }
 
-        public void Delete(object id)
+        public void Delete(int id)
         {
             _repository.Delete(id);
         }
@@ -87,7 +87,7 @@ namespace Business.Core
             return _repository.SelectAll();
         }
 
-        public TEntity SelectById(object id)
+        public TEntity SelectById(int id)
         {
             return _repository.SelectById(id);
         }

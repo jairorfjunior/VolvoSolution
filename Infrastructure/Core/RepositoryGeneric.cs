@@ -56,13 +56,13 @@ namespace Infrastructure.Core
 
         }
 
-        public void Delete(object id)
+        public void Delete(int id)
         {
             try
             {
 
 
-                _dbContexto.Set<T>().Remove(SelectById(id));
+                _dbContexto.Set<T>().Remove(this.SelectById(id));
                 _dbContexto.SaveChanges();
             }
             catch (Exception ex)
@@ -138,7 +138,7 @@ namespace Infrastructure.Core
         }
 
 
-        public T SelectById(object id)
+        public T SelectById(int id)
         {
             return _dbContexto.Set<T>().Find(id);
         }
