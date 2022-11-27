@@ -31,12 +31,12 @@ builder.Services.AddScoped<VolvoContext>();
 builder.Services.AddTransient(typeof(IRepositoryGeneric<>), typeof(RepositoryGeneric<>)); // repository generic
 builder.Services.AddTransient(typeof(IServiceGeneric<>), typeof(ServiceGeneric<>)); // repository generic
 
-
-builder.Services.AddTransient<IVehicleRepository, VehicleRepository>();
-builder.Services.AddTransient<IVehicleService, VehicleService>();
+// use transient para recriar a cada request
+builder.Services.AddScoped<IVehicleRepository, VehicleRepository>();
+builder.Services.AddScoped<IVehicleService, VehicleService>();
  
-builder.Services.AddTransient<IVehicleModelRepository, VehicleModelRepository>();
-builder.Services.AddTransient<IVehicleModelService, VehicleModelService>();
+builder.Services.AddScoped<IVehicleModelRepository, VehicleModelRepository>();
+builder.Services.AddScoped<IVehicleModelService, VehicleModelService>();
 
 var app = builder.Build();
 
