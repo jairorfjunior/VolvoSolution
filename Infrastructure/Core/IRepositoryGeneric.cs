@@ -20,10 +20,7 @@ namespace Infrastructure.Core
         Task<List<T>> SelectAsync(Expression<Func<T, bool>> predicate);
         Task<List<T>> SelectAsyncAll();
         Task<T> SelectAsyncById(object id);
-
-        int Save();
-        int Count();
-        int Count(Expression<Func<T, bool>> predicate);
+ 
         IQueryable<T> GetIncluding(params Expression<Func<T, object>>[] includeProperties);
 
     }

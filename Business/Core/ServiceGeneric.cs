@@ -13,17 +13,7 @@ namespace Business.Core
             _repository = repository;
         }
 
-
-        public int Count()
-        {
-            return _repository.Count();
-        }
-
-        public int Count(Expression<Func<TEntity, bool>> predicate)
-        {
-            return _repository.Count(predicate);
-        }
-
+         
         public void Delete(TEntity entity)
         {
             _repository.Delete(entity);
@@ -64,13 +54,7 @@ namespace Business.Core
             _repository.Insert(entity);
 
         }
-
-        public int Save()
-        {
-            return _repository.Save();
-        }
-
-
+ 
 
         public void Update(TEntity entity)
         {

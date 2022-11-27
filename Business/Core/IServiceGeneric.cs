@@ -19,9 +19,7 @@ namespace Business.Core
         Task<List<T>> SelectAsyncAll();
         Task<T> SelectAsyncById(object id);
         T SelectById(int id);
-        Int32 Save();
-        int Count();
-        int Count(Expression<Func<T, bool>> predicate);
+ 
         IQueryable<T> GetIncluding(params Expression<Func<T, object>>[] includeProperties);
 
     }

@@ -1,4 +1,5 @@
-﻿using Business.Interfaces;
+﻿using Business.Facade;
+using Business.Interfaces;
 using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,45 +12,82 @@ namespace Application.Controllers
     public class VehicleController : ControllerBase
     {
 
-        private readonly IVehicleService _vehicleService;
-        public VehicleController(IVehicleService vehicleService)
+        private readonly IVehicleFacade _vehicleFacade;
+        public VehicleController(IVehicleFacade vehicleFacade)
         {
-            _vehicleService = vehicleService;
+            _vehicleFacade = vehicleFacade;
         }
 
         // GET: api/<VehicleController>
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok( _vehicleService.SelectAll().AsEnumerable());
+            try
+            {
+                return Ok(_vehicleFacade.ListarTodos());
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { result = false, message = ex.Message });
+            }
+
         }
 
         // GET api/<VehicleController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return Ok(_vehicleService.SelectById(id));
+            return Ok(_vehicleFacade.SelectById(id));
         }
 
         // POST api/<VehicleController>
         [HttpPost]
-        public void Post([FromBody] Vehicle model)
+        public IActionResult Post([FromBody] Vehicle model)
         {
-             _vehicleService.Insert(model);
+            try
+            {
+                _vehicleFacade.Incluir(model);
+                return Ok(new { result = true, message = "Registro incluído com sucesso" });
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(new { result = false, message = ex.Message });
+            }
+           
         }
 
         // PUT api/<VehicleController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] Vehicle model)
+        public IActionResult Put(int id, [FromBody] Vehicle model)
         {
-            _vehicleService.Update(model);
+            try
+            {
+                _vehicleFacade.Atualizar(model);
+                return Ok(new { result = true, message = "Registro alterado com sucesso" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { result = false, message = ex.Message });
+            }
+           
         }
 
         // DELETE api/<VehicleController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
-            _vehicleService.Delete(id);
+            try
+            {
+                _vehicleFacade.Excluir(id);
+                return Ok(new { result = true, message = "Registro excluído com sucesso" });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { result = false, message = ex.Message });
+            }
+
         }
     }
 }

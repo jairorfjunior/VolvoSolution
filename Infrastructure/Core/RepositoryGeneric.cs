@@ -148,23 +148,8 @@ namespace Infrastructure.Core
         {
             return _dbContexto.Set<T>().AsQueryable();
         }
-
-        public int Save()
-        {
-            return _dbContexto.SaveChanges();
-        }
-
-
-
-        public int Count()
-        {
-            return _dbContexto.Set<T>().Count();
-        }
-
-        public int Count(Expression<Func<T, bool>> predicate)
-        {
-            return _dbContexto.Set<T>().Count(predicate);
-        }
+ 
+ 
 
         public void Dispose()
         {

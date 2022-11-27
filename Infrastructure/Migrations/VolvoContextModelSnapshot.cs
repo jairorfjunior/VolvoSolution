@@ -25,7 +25,10 @@ namespace Infrastructure.Migrations
             modelBuilder.Entity("Domain.Models.Vehicle", b =>
                 {
                     b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
                     b.Property<int>("IdVehicleModel")
                         .HasColumnType("int");
@@ -33,14 +36,25 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("VehicleCreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 11, 26, 19, 15, 45, 183, DateTimeKind.Local).AddTicks(7118));
+                        .HasDefaultValue(new DateTime(2022, 11, 27, 11, 6, 51, 700, DateTimeKind.Local).AddTicks(8863));
 
                     b.Property<string>("VehicleDescription")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
 
+                    b.Property<int>("VehicleModelsId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VehicleYearManufacture")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VehicleYearModel")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("VehicleModelsId");
 
                     b.ToTable("Vehicle", (string)null);
                 });
@@ -56,7 +70,7 @@ namespace Infrastructure.Migrations
                     b.Property<DateTime>("VehicleModelCreatedDate")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("datetime2")
-                        .HasDefaultValue(new DateTime(2022, 11, 26, 19, 15, 45, 183, DateTimeKind.Local).AddTicks(7622));
+                        .HasDefaultValue(new DateTime(2022, 11, 27, 11, 6, 51, 700, DateTimeKind.Local).AddTicks(9519));
 
                     b.Property<string>("VehicleModelDescription")
                         .IsRequired()
@@ -86,8 +100,8 @@ namespace Infrastructure.Migrations
                 {
                     b.HasOne("Domain.Models.VehicleModel", "VehicleModels")
                         .WithMany("Vehicles")
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .HasForeignKey("VehicleModelsId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("VehicleModels");

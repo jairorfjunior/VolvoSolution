@@ -1,4 +1,8 @@
-﻿namespace Domain.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
+
+namespace Domain.Models
 {
     public class Vehicle : BaseEntity
     {
@@ -13,7 +17,8 @@
 
         public DateTime VehicleCreatedDate { get; set; }
 
-        public virtual VehicleModel VehicleModels { get; set; }
+        [JsonIgnore]
+        public virtual VehicleModel? VehicleModels { get; set; }
 
 
 

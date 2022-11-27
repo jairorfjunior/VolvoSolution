@@ -1,4 +1,4 @@
-﻿using Business.Interfaces;
+﻿using Business.Facade;
 using Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,46 +10,46 @@ namespace Application.Controllers
     [ApiController]
     public class VehicleModelController : ControllerBase
     {
-        private readonly IVehicleModelService _vehicleModelService;
-        public VehicleModelController(IVehicleModelService vehicleModelService)
+        private readonly IVehicleModelFacade _vehicleModelFacade;
+        public VehicleModelController(IVehicleModelFacade  vehicleModelFacade)
         {
 
-            _vehicleModelService = vehicleModelService;
+            _vehicleModelFacade = vehicleModelFacade;
         }
 
         // GET: api/<VehicleModelController>
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_vehicleModelService.SelectAll().AsEnumerable());
+            return Ok(_vehicleModelFacade.ListarTodos());
         }
 
         // GET api/<VehicleModelController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return Ok( _vehicleModelService.SelectById(id));
+            return Ok(_vehicleModelFacade.SelectById(id));
         }
 
         // POST api/<VehicleModelController>
         [HttpPost]
         public void Post([FromBody] VehicleModel model)
-        {
-            _vehicleModelService.Insert(model);
+        {          
+            _vehicleModelFacade.Incluir(model);
         }
 
         // PUT api/<VehicleModelController>/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] VehicleModel model)
         {
-            _vehicleModelService.Update(model);
+            _vehicleModelFacade.Atualizar(model);
         }
 
         // DELETE api/<VehicleModelController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            _vehicleModelService.Delete(id);
+            _vehicleModelFacade.Excluir(id);
         }
     }
 }

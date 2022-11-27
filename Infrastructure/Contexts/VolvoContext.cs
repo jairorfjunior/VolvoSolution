@@ -8,8 +8,7 @@ namespace Infrastructure.Contexts
     {
         public VolvoContext(DbContextOptions<VolvoContext> options) : base(options)
         {
-
-            
+                Database.Migrate();
         }
 
 
@@ -26,10 +25,10 @@ namespace Infrastructure.Contexts
                 entity.HasKey(p => p.Id);
 
 
-                entity.HasOne(p => p.VehicleModels)
-                 .WithMany(a => a.Vehicles)
-                 .HasForeignKey(b => b.Id)
-                 .OnDelete(DeleteBehavior.Restrict);
+                //entity.HasOne(p => p.VehicleModels)
+                // .WithMany(a => a.Vehicles)
+                // .HasForeignKey(b => b.Id)
+                // .OnDelete(DeleteBehavior.Restrict);
 
 
                 entity.Property(p => p.VehicleDescription)
