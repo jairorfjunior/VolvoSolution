@@ -17,39 +17,44 @@ namespace Application.Controllers
             _vehicleModelFacade = vehicleModelFacade;
         }
 
-        // GET: api/<VehicleModelController>
+     
         [HttpGet]
-        public IActionResult Get()
+        [Route("Listar")]
+        public IEnumerable<VehicleModel> Listar()
         {
-            return Ok(_vehicleModelFacade.ListarTodos());
+            return _vehicleModelFacade.Listar();
         }
 
-        // GET api/<VehicleModelController>/5
-        [HttpGet("{id}")]
-        public IActionResult Get(int id)
+        
+        [HttpGet]
+        [Route("ObterPorId")]
+        public VehicleModel ObterPorId(int id)
         {
-            return Ok(_vehicleModelFacade.SelectById(id));
+             return _vehicleModelFacade.SelectById(id);
         }
 
-        // POST api/<VehicleModelController>
+         
         [HttpPost]
-        public void Post([FromBody] VehicleModel model)
+        [Route("Incluir")]
+        public VehicleModel Incluir([FromBody] VehicleModel model)
         {          
-            _vehicleModelFacade.Incluir(model);
+            return _vehicleModelFacade.Incluir(model);
         }
 
-        // PUT api/<VehicleModelController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] VehicleModel model)
+       
+        [HttpPut]
+        [Route("Atualizar")]
+        public void Atualizar( [FromBody] VehicleModel model)
         {
             _vehicleModelFacade.Atualizar(model);
         }
 
-        // DELETE api/<VehicleModelController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+         
+        [HttpDelete]
+        [Route("Excluir")]
+        public bool Excluir(int id)
         {
-            _vehicleModelFacade.Excluir(id);
+            return _vehicleModelFacade.Excluir(id);
         }
     }
 }

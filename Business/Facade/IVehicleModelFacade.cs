@@ -9,12 +9,12 @@ namespace Business.Facade
 {
     public interface IVehicleModelFacade : IFacade<VehicleModel>
     {
-        void Incluir(VehicleModel vehicle);
+        VehicleModel Incluir(VehicleModel vehicle);
 
-        List<VehicleModel> ListarTodos();
+        List<VehicleModel> Listar();
 
-        void Atualizar(VehicleModel vehicle);
+        VehicleModel Atualizar(VehicleModel vehicle);
 
-        void Excluir(int id);
+        bool Excluir(int id);
     }
 }

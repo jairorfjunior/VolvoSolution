@@ -11,22 +11,50 @@ namespace Business.Facade
             _vehicleModelService = vehicleModelService;
         }
 
-        public void Atualizar(VehicleModel vehicle)
+        public VehicleModel Atualizar(VehicleModel vehicle)
         {
             _vehicleModelService.Update(vehicle);
+
+            return vehicle;
         }
 
-        public void Excluir(int id)
+        public bool Excluir(int id)
         {
-            _vehicleModelService.Delete(id);
+            try
+            {
+                _vehicleModelService.Delete(id);
+
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+           
         }
 
-        public void Incluir(VehicleModel vehicle)
-        {
-            _vehicleModelService.Insert(vehicle);
+        public VehicleModel Incluir(VehicleModel vehiclemodel)
+        { 
+             
+            _vehicleModelService.Insert(vehiclemodel);
+
+            var result = _vehicleModelService.SelectAll().LastOrDefault();
+
+            if(result != null)
+            {
+                return result;
+            }
+            else
+            {
+                return new VehicleModel();
+            }
+
+            
+            
         }
 
-        public List<VehicleModel> ListarTodos()
+        public List<VehicleModel> Listar()
         {
             return _vehicleModelService.SelectAll().ToList();
         }

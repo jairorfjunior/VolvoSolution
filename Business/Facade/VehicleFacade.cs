@@ -46,12 +46,7 @@ namespace Business.Facade
         public Vehicle Incluir(Vehicle vehicle)
         {
             try
-            {
-
-                vehicle.VehicleModels = _vehicleModelService.Find(x => x.Id == vehicle.IdVehicleModel);
-
-                if(vehicle.VehicleModels == null)
-                    throw new InvalidOperationException("Não foi encontrado o modelo do veículo");                
+            { 
 
                 _vehicleService.Insert(vehicle);
 

@@ -23,12 +23,13 @@ namespace Tests
             _vehicleFacade = new VehicleFacade(new Mock<IVehicleService>().Object, new Mock<IVehicleModelService>().Object);
         }
 
-        [Fact]
+        [Fact(DisplayName = "Incluir Veículos")]
         public void Post_Incluir()
         {
             var veiculoController = new VehicleController(_vehicleFacade);
 
-            var veiculo = new Vehicle();
+            var veiculo = new Vehicle() { Id = 1, IdVehicleModel = 2, VehicleDescription = "Teste", VehicleYearManufacture = 2019, VehicleYearModel = 2023 };
+            
             var result = veiculoController.Incluir(veiculo);
               
             Assert.NotNull(result);
@@ -36,20 +37,32 @@ namespace Tests
              
         }
 
-        [Fact]
-        public void Get_Listar()
+        [Fact(DisplayName = "Atualizar Veículos")]
+        public void Post_Atualizar()
         {
-            var vehicleList = Dados() as List<Vehicle>;
- 
-
             var veiculoController = new VehicleController(_vehicleFacade);
 
+            var veiculo = new Vehicle() { Id = 1, IdVehicleModel = 2, VehicleDescription = "Teste", VehicleYearManufacture = 2021, VehicleYearModel = 2023 };
+
+            var result = veiculoController.Atualizar(veiculo);
+
+            Assert.NotNull(result);
+
+
+        }
+
+        [Fact(DisplayName = "Listar Veículos")]
+        public void Get_Listar()
+        {
+
+        
+            var veiculoController = new VehicleController(_vehicleFacade);
             
             var result = veiculoController.Listar();
+            
 
-          
             Assert.NotNull(result);
-            Assert.Equal(Dados().Count(), result.Count());
+            
 
 
         }
@@ -62,35 +75,15 @@ namespace Tests
         [InlineData(4)]
         public void Post_Excluir(int value)
         {
-            var veiculoController = new VehicleController(_vehicleFacade);
-
-            var veiculo = new Vehicle();
+            var veiculoController = new VehicleController(_vehicleFacade);            
             var result = veiculoController.Excluir(value);
-
 
             Assert.True(result);
            
 
         }
 
-
-        [Fact]  
-        public void Post_ValidID()
-        {
-           var exception = Assert.Throws<ArgumentException>(() => _vehicleFacade.Incluir(new Vehicle() {   IdVehicleModel = 1, VehicleDescription = "Teste"}));
-
-            Assert.True(true);
-        }
-
-        [Theory(DisplayName = "Vehicle estão preenchidos")]
-        [MemberData(nameof(Dados))]
-        public void Verify_Content(Vehicle vehicle)
-        {
-             
-            Assert.NotEmpty(vehicle.VehicleDescription);
-            Assert.IsType<Vehicle>(vehicle);
-
-        }
+  
 
 
         public static IEnumerable<object[]> Dados()
