@@ -12,3 +12,21 @@ cd projetos
 
 git clone https://github.com/jairorfjunior/VolvoSolution.git
 
+Abra o projeto VolvoSolution.sln
+
+
+
+Package Manager Console
+Selecione o Projeto Infrastructure
+
+Execute o comando abaixo para criar a migração
+PM> Add-Migration Initial
+
+Use o comando a seguir para criar ou atualizar o esquema de banco de dados.
+PM> Update-database
+
+
+Para efetuar os testes continue com o Package Manage Console aberto
+Selecione o projeto Tests e digite abaixo
+PM> dotnet test
+
