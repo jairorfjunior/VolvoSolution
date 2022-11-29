@@ -14,7 +14,10 @@ git clone https://github.com/jairorfjunior/VolvoSolution.git
 
 Abra o projeto VolvoSolution.sln
 
+No arquivo VolvoContext existe o comando  Database.EnsureCreated() para criar automaticamente a base de dados.
 
+
+Outra forma seria utilizar os comandos do Migration
 
 Package Manager Console
 
