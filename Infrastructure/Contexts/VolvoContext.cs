@@ -1,5 +1,6 @@
 ﻿using Domain.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.TestModels.ConcurrencyModel;
 using Microsoft.Extensions.Options;
 
 namespace Infrastructure.Contexts
@@ -8,7 +9,7 @@ namespace Infrastructure.Contexts
     {
         public VolvoContext(DbContextOptions<VolvoContext> options) : base(options)
         {
-                Database.Migrate();
+            Database.EnsureCreated();
         }
 
 
@@ -18,28 +19,6 @@ namespace Infrastructure.Contexts
             // modelBuilder.ApplyConfiguration(new VehicleMap());
             // modelBuilder.ApplyConfiguration(new VehicleModelMap());
 
-
-            modelBuilder.Entity<Vehicle>(entity =>
-            {
-                entity.ToTable("Vehicle");
-                entity.HasKey(p => p.Id);
-
-
-                //entity.HasOne(p => p.VehicleModels)
-                // .WithMany(a => a.Vehicles)
-                // .HasForeignKey(b => b.Id)
-                // .OnDelete(DeleteBehavior.Restrict);
-
-
-                entity.Property(p => p.VehicleDescription)
-                 .HasMaxLength(150)
-                 .IsRequired();
-
-
-                entity.Property(p => p.VehicleCreatedDate)
-                .HasDefaultValue(DateTime.Now);
-
-            });
 
             modelBuilder.Entity<VehicleModel>(entity =>
             {
@@ -58,6 +37,28 @@ namespace Infrastructure.Contexts
 
 
             });
+
+
+            modelBuilder.Entity<Vehicle>(entity =>
+            {
+                entity.ToTable("Vehicle");
+                entity.HasKey(p => p.Id);
+ 
+
+                entity.Property(p => p.VehicleDescription)
+                 .HasMaxLength(150)
+                 .IsRequired();
+
+
+                entity.Property(p => p.VehicleCreatedDate)
+                .HasDefaultValue(DateTime.Now);
+
+
+                entity.HasData(new Vehicle { Id = 1, IdVehicleModel = 1, VehicleDescription = "6x4", VehicleYearManufacture =  2022, VehicleYearModel = 2022 },
+                             new Vehicle{ Id = 2, IdVehicleModel = 2, VehicleDescription = "4x2", VehicleYearManufacture = 2022, VehicleYearModel = 2022 });
+
+            });
+
 
 
         }

@@ -52,9 +52,6 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<VolvoContext>(options =>
         options.UseSqlServer(connectionString).UseLazyLoadingProxies(false));
  
-
-builder.Services.AddScoped<VolvoContext>();
-  
  
 builder.Services.AddScoped(typeof(IRepositoryGeneric<>), typeof(RepositoryGeneric<>)); // repository generic
 builder.Services.AddScoped(typeof(IServiceGeneric<>), typeof(ServiceGeneric<>)); // repository generic
@@ -75,9 +72,10 @@ builder.Services.AddScoped<IValidator<VehicleModel>, VehicleModelValidator>();
 builder.Services.AddScoped<IVehicleFacade, VehicleFacade>();
 builder.Services.AddScoped<IVehicleModelFacade, VehicleModelFacade>();
 
+ 
+
 var app = builder.Build();
-
-
+ 
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -91,5 +89,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+ 
 
 app.Run();

@@ -6,6 +6,6 @@
 
         public DateTime VehicleModelCreatedDate { get; set; }
 
-        public virtual ICollection<Vehicle> Vehicles { get; set; }
+        public virtual ICollection<Vehicle>? Vehicles { get; set; }
     }
 }

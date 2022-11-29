@@ -44,9 +44,9 @@ namespace Application.Controllers
        
         [HttpPut]
         [Route("Atualizar")]
-        public void Atualizar( [FromBody] VehicleModel model)
+        public VehicleModel Atualizar( [FromBody] VehicleModel model)
         {
-            _vehicleModelFacade.Atualizar(model);
+            return _vehicleModelFacade.Atualizar(model);
         }
 
          

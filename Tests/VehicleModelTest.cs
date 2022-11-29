@@ -34,7 +34,24 @@ namespace Tests
             Assert.NotNull(result);
 
 
+
+
         }
+
+        [Fact(DisplayName = "Atualizar Modelos")]
+        public void Post_Atualizar()
+        {
+            var veiculoController = new VehicleModelController(_vehicleModelFacade);
+
+            var veiculo = new VehicleModel() { Id = 1, VehicleModelDescription = "TESTE" };
+
+            var result = veiculoController.Atualizar(veiculo);
+
+            Assert.NotNull(result);
+
+
+        }
+
 
         [Fact(DisplayName = "Listar Modelos")]
         public void Get_Listar()
